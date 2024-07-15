@@ -24,6 +24,7 @@ const Products = () => {
         setOpen(true)
         const response = await axios.put(`products/${editProducts}`, value)
         response.then(res => console.log(res))
+        setOpen(false)
     }
     const createNewProduct = async (values) => {
         const value = {...values, isFeatured: true}
@@ -88,6 +89,7 @@ const Products = () => {
                     open={open}
                     onOk={() => setOpen(false)}
                     onCancel={() => setOpen(false)}
+                    footer={null}
                 >
                     <Form
                         name="EditForm"
@@ -251,6 +253,7 @@ const Products = () => {
                     open={modal2Open}
                     onOk={() => setModal2Open(false)}
                     onCancel={() => setModal2Open(false)}
+                    footer={null}
                 >
                     <Form
                         name="CreateForm"
