@@ -13,26 +13,23 @@ const Products = () => {
     const [modal2Open, setModal2Open] = useState(false);
     const [data, loading] = useFetch("products")
     const [stock, setStock] = useState(10)
+    const [editProducts, setEditProduct] = useState(null)
     const deleteProduct = async (product) => {
-        const respons = await axios.delete(`products/${product.id}`, {
-            headers: {
-                Authorization: `${localStorage.getItem("token")}`
-            }
-        })
+        const respons = await axios.delete(`products/${product.id}`)
         respons.then(res => console.log(res))
     }
 
-    const editProduct = async (id, values) => {
+    const editProduct = async (values) => {
+        const value = {...values, isFeatured: true}
         setOpen(true)
-        console.log(id)
-        console.log(values)
-        const response = await axios.put(`products/${id}`, values)
+        const response = await axios.put(`products/${editProducts}`, value)
         response.then(res => console.log(res))
     }
     const createNewProduct = async (values) => {
+        const value = {...values, isFeatured: true}
         setModal2Open(true)
         console.log(values)
-        const response = await axios.post("products", values)
+        const response = await axios.post("products", value)
         response.then(res => console.log(res))
     }
     const onFinishFailed = (errorInfo) => {
@@ -72,7 +69,7 @@ const Products = () => {
                             <td className="border">
                                 <button onClick={() => deleteProduct(product)}
                                         className="mr-6 text-white bg-red-600 p-2 rounded-md"><MdDelete/></button>
-                                <button onClick={() => editProduct(product.id)}
+                                <button onClick={() => editProduct(setEditProduct(product.id))}
                                         className="text-white bg-amber-300 p-2 rounded-md"><MdEdit/></button>
                             </td>
                         </tr>
@@ -130,7 +127,7 @@ const Products = () => {
 
                                 <Form.Item
                                     label="Full description"
-                                    name="full description"
+                                    name="richDescription"
                                     rules={[
                                         {
                                             required: true,
@@ -189,7 +186,7 @@ const Products = () => {
                                     <Col span={6}>
                                         <Form.Item
                                             label="Amount"
-                                            name="amount"
+                                            name="countInStock"
                                             rules={[
                                                 {
                                                     type: "number",
@@ -223,7 +220,7 @@ const Products = () => {
                                     <Col span={6}>
                                         <Form.Item
                                             label="Review"
-                                            name="review"
+                                            name="numReviews"
                                             rules={[
                                                 {
                                                     type: "number",
@@ -293,7 +290,7 @@ const Products = () => {
 
                                 <Form.Item
                                     label="Full description"
-                                    name="full description"
+                                    name="richDescription"
                                     rules={[
                                         {
                                             required: true,
@@ -352,7 +349,7 @@ const Products = () => {
                                     <Col span={6}>
                                         <Form.Item
                                             label="Amount"
-                                            name="amount"
+                                            name="countInStock"
                                             rules={[
                                                 {
                                                     type: "number",
@@ -386,7 +383,7 @@ const Products = () => {
                                     <Col span={6}>
                                         <Form.Item
                                             label="Review"
-                                            name="review"
+                                            name="numReviews"
                                             rules={[
                                                 {
                                                     type: "number",
