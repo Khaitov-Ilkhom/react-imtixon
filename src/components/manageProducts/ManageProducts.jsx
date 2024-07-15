@@ -4,7 +4,6 @@ import Container from "../container/Container.jsx";
 import {MdDelete, MdEdit} from "react-icons/md";
 import axios from "../../api/axios.jsx";
 import {Button, Col, Form, Input, InputNumber, Modal, Row, Typography} from "antd";
-import {validate} from "uuid";
 
 const {Title, Text} = Typography;
 
@@ -16,22 +15,17 @@ const Products = () => {
     const [editProducts, setEditProduct] = useState(null)
     const deleteProduct = async (product) => {
         const respons = await axios.delete(`products/${product.id}`)
-        respons.then(res => console.log(res))
     }
 
     const editProduct = async (values) => {
         const value = {...values, isFeatured: true}
         setOpen(true)
         const response = await axios.put(`products/${editProducts}`, value)
-        response.then(res => console.log(res))
-        setOpen(false)
     }
     const createNewProduct = async (values) => {
         const value = {...values, isFeatured: true}
         setModal2Open(true)
-        console.log(values)
         const response = await axios.post("products", value)
-        response.then(res => console.log(res))
     }
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
