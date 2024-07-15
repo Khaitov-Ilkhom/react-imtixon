@@ -3,25 +3,19 @@ import saveToLocalStorage from "../../utils/LocalStorage.jsx";
 export const initialState = JSON.parse(localStorage.getItem("product")) || []
 
 const reducer = (state, action) => {
-    let updateState;
     switch (action.type) {
         case "ADD_TO_CART": {
             let index = state.findIndex(product => product.id === action.data.id)
             if (index < 0) {
                 state = [
                     ...state,
-                    {
-                        ...action.data,
-                        stock: action.stock
-                    }
+                    action.data
+
                 ]
-                saveToLocalStorage("product", updateState)
+                saveToLocalStorage("product", state)
             } else {
                 return state
             }
-            const newState = [ ...state, action.data]
-            saveToLocalStorage("product", newState)
-            return newState
         }
         case "REMOVE_CARD": {
             const newState = state.filter(product => product.id !== action.id)
@@ -29,14 +23,10 @@ const reducer = (state, action) => {
             return newState
         }
         case "INCREMENT_STOCK": {
-            const index = state.findIndex(product => product.id === action.id)
-            console.log(index)
-            return [...state, state[index] = {...state[index], stock: state[index].stock > 0 ? state[index].stock + 1 : state[index].stock } ]
+            return state.map(product => product.id === action.id ? {...product, stock: product.stock + 1} : product)
         }
         case "DECREMENT_STOCK": {
-            const index = state.findIndex(product => product.id === action.id)
-            console.log(index)
-            return [...state, state[index] = {...state[index], stock: state[index].stock > 1 ? state[index].stock - 1 : state[index].stock } ]
+            return state.map(product => product.id === action.id ? {...product, stock: product.stock > 1 ? product.stock - 1 : product.stock} : product)
         }
         default: {
             return state

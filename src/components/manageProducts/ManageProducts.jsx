@@ -21,11 +21,13 @@ const Products = () => {
         const value = {...values, isFeatured: true}
         setOpen(true)
         const response = await axios.put(`products/${editProducts}`, value)
+        setOpen(false)
     }
     const createNewProduct = async (values) => {
         const value = {...values, isFeatured: true}
         setModal2Open(true)
         const response = await axios.post("products", value)
+        setModal2Open(false)
     }
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);

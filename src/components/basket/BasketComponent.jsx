@@ -7,7 +7,6 @@ import { CiCircleRemove } from "react-icons/ci";
 const BasketComponent = () => {
 
     const [state, dispatch] = useContext(AppContext)
-    console.log(state)
     const removeCard = (id) => {
         dispatch({type: "REMOVE_CARD", id})
     }
