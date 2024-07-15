@@ -1,0 +1,11 @@
+.notFound {
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../../images/error.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    background-attachment: scroll;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
